@@ -20,9 +20,11 @@ export const Stepper = (props: IStepper) => {
         {props.steps[stepDetails.currentPageIndex].label}
       </div>
     ),
-    onClickHandler: () =>
-      setStepDetails({ currentPageIndex: stepDetails.currentPageIndex }),
-    stepStateColor: "#0078D4",
+    onClickHandler: () => {
+      if(props.steps[stepDetails.currentPageIndex].isActive)
+        setStepDetails({ currentPageIndex: stepDetails.currentPageIndex })
+    },
+    stepStateColor: props.steps[stepDetails.currentPageIndex].isActive ? "#0078D4" : "#D3D3D3",
   };
   return (
     <Stack

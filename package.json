@@ -1,7 +1,7 @@
 {
-  "name": "multistep-wizard-fluent",
-  "version": "1.1.1",
-  "description": "An easy-to-use and customizable 'Multi-step Wizard' component using Fluent controls.",
+  "name": "multistep-wizard-react",
+  "version": "1.0.3",
+  "description": "A customizable 'Multi-step Wizard' component using Microsoft Fluent controls.",
   "main": "dist/index.js",
   "scripts": {
     "build": "rollup -c",
@@ -11,7 +11,7 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/priyankark/multistep-wizard-fluent.git"
+    "url": "git+https://github.com/prkhandelwal/multistep-wizard-fluent.git"
   },
   "keywords": [
     "multistep wizard",
@@ -22,12 +22,9 @@
     "wizard",
     "steps-wizard"
   ],
-  "author": "Priyankar Kumar",
+  "author": "Pratik Khandelwal",
   "license": "MIT",
-  "bugs": {
-    "url": "https://github.com/priyankark/multistep-wizard-fluent/issues"
-  },
-  "homepage": "https://github.com/priyankark/multistep-wizard-fluent#readme",
+  "homepage": "https://github.com/prkhandelwal/multistep-wizard-fluent#readme",
   "peerDependencies": {
     "react": "^17.0.1",
     "react-dom": "^17.0.1"
@@ -75,5 +72,8 @@
   "alias": {
     "react": "./node_modules/react",
     "react-dom": "./node_modules/react-dom"
+  },
+  "bugs": {
+    "url": "https://github.com/prkhandelwal/multistep-wizard-fluent/issues"
   }
 }

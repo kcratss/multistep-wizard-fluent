@@ -26,6 +26,7 @@ export enum ContainerType {
 export interface IStepPageMap {
   label: string;
   element: JSX.Element;
+  isActive: boolean;
 }
 
 export interface IStepper {

@@ -7,6 +7,8 @@ import { getContainerStyleBasedOnResolution } from "../utilities/helpers";
 export type IFooterProps = {
   shouldDisablePrev?: () => boolean;
   shouldDisableNext?: () => boolean;
+  submitText?: string;
+  onSubmit?: () => void;
 };
 
 export const Footer = (props: IFooterProps) => {
@@ -18,6 +20,7 @@ export const Footer = (props: IFooterProps) => {
       style={{ marginLeft: getContainerStyleBasedOnResolution().navWidth }}
     >
       <Stack horizontal tokens={{ childrenGap: 12 }}>
+
         <Stack.Item>
           {stepDetails.currentPageIndex !== 0 && (
             <DefaultButton
@@ -34,6 +37,7 @@ export const Footer = (props: IFooterProps) => {
             </DefaultButton>
           )}
         </Stack.Item>
+
         <Stack.Item>
           {stepDetails.currentPageIndex !== stepList.length - 1 && (
             <PrimaryButton
@@ -50,6 +54,20 @@ export const Footer = (props: IFooterProps) => {
             </PrimaryButton>
           )}
         </Stack.Item>
+
+        <Stack.Item>
+          {stepDetails.currentPageIndex === stepList.length - 1 && (
+            <PrimaryButton
+              onClick={props.onSubmit}
+              disabled={
+                props.shouldDisableNext ? props.shouldDisableNext() : false
+              }
+            >
+              {props.submitText?.length !== 0 ? props.submitText : "Submit"}
+            </PrimaryButton>
+          )}
+        </Stack.Item>
+
       </Stack>
     </footer>
   );

@@ -127,6 +127,9 @@ export const WizardMainContent = (props: IWizard) => {
 };
 
 export const Wizard = (props: IWizard) => {
+  const onRenderFooter = (props: IWizard) => {
+    return props.Footer ?? null;
+  };
   if (props.containerType === ContainerType.PANEL) {
     return (
       <NavContextWrapper initialStepList={props.steps}>
@@ -144,7 +147,18 @@ export const Wizard = (props: IWizard) => {
   }
   return (
     <NavContextWrapper initialStepList={props.steps}>
-      <WizardMainContent {...props} />
+      <div>
+        <WizardMainContent {...props} />
+        <div style={{
+          position:"absolute",
+          bottom:'0',
+          width:'100%',
+          height:'60px',
+          background:'transparent'
+        }}>
+          {onRenderFooter(props)}
+        </div>
+      </div>
     </NavContextWrapper>
   );
 };

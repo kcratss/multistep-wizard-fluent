@@ -21,8 +21,9 @@ export const Stepper = (props: IStepper) => {
       </div>
     ),
     onClickHandler: () => {
-      if(props.steps[stepDetails.currentPageIndex].isActive)
+      if(props.steps[stepDetails.currentPageIndex].isActive){
         setStepDetails({ currentPageIndex: stepDetails.currentPageIndex })
+      }
     },
     stepStateColor: props.steps[stepDetails.currentPageIndex].isActive ? "#0078D4" : "#D3D3D3",
   };
@@ -33,7 +34,7 @@ export const Stepper = (props: IStepper) => {
           minWidth: getContainerStyleBasedOnResolution().navWidth,
           maxWidth: getContainerStyleBasedOnResolution().navWidth,
         },
-      }}
+      }} 
     >
       <StepperNav steps={stepperMapProps} />
     </Stack>

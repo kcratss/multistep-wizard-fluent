@@ -9,12 +9,18 @@ export type IFooterProps = {
   shouldDisableNext?: () => boolean;
   submitText?: string;
   onSubmit?: () => void;
+  navStateCallback: (data: INavDetails) => void;
 };
+
+export type INavDetails = {
+  currentPageIndex: number;
+}
 
 export const Footer = (props: IFooterProps) => {
   const { stepDetails, setStepDetails, stepList } = React.useContext(
     NavContext
   );
+  
   return (
     <footer
       style={{ marginLeft: getContainerStyleBasedOnResolution().navWidth }}
@@ -28,6 +34,10 @@ export const Footer = (props: IFooterProps) => {
                 setStepDetails({
                   currentPageIndex: stepDetails.currentPageIndex - 1,
                 });
+                const data: INavDetails = {
+                  currentPageIndex: stepDetails.currentPageIndex - 1
+                }
+                props.navStateCallback(data);
               }}
               disabled={
                 props.shouldDisablePrev ? props.shouldDisablePrev() : false
@@ -45,6 +55,10 @@ export const Footer = (props: IFooterProps) => {
                 setStepDetails({
                   currentPageIndex: stepDetails.currentPageIndex + 1,
                 });
+                const data: INavDetails = {
+                  currentPageIndex: stepDetails.currentPageIndex + 1
+                }
+                props.navStateCallback(data);
               }}
               disabled={
                 props.shouldDisableNext ? props.shouldDisableNext() : false

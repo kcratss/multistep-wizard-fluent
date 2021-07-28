@@ -9,6 +9,7 @@ import {
   ScrollablePane,
   ScrollbarVisibility,
 } from "@fluentui/react/lib/ScrollablePane";
+import { INavDetails } from "./Footer";
 
 export interface IContainerProps {
   children: JSX.Element;
@@ -31,6 +32,7 @@ export interface IStepPageMap {
 
 export interface IStepper {
   steps: IStepPageMap[];
+  navStateCallback: (data: INavDetails) => void;
 }
 
 export interface IWizard {
@@ -42,6 +44,7 @@ export interface IWizard {
   headerText?: string;
   closeButtonAriaLabel?: string;
   Footer?: JSX.Element;
+  navStateCallback: (data: INavDetails) => void;
 }
 
 export const WizardMainContent = (props: IWizard) => {
@@ -90,7 +93,7 @@ export const WizardMainContent = (props: IWizard) => {
           }}
         >
           <Stack>
-            <Stepper steps={props.steps} />
+            <Stepper steps={props.steps} navStateCallback={props.navStateCallback} />
           </Stack>
         </Stack.Item>
         <Stack.Item>

@@ -1,6 +1,6 @@
 {
   "name": "fluent-wizard-react",
-  "version": "1.0.5",
+  "version": "1.0.11",
   "description": "A customizable 'Multi-step Wizard' component using Microsoft Fluent controls.",
   "main": "dist/index.js",
   "scripts": {

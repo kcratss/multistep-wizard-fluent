@@ -1,9 +1,9 @@
 # multistep-wizard-fluent
 An easy-to-use multi-step Wizard component using Fluent design.
 
-Published at https://www.npmjs.com/package/multistep-wizard-react
+Published at https://www.npmjs.com/package/fluent-wizard-react
 
-Usage Example: https://codesandbox.io/s/winter-shape-n7v8n?file=/src/App.tsx
+Usage Example: https://codesandbox.io/s/blissful-tesla-c4dl4
 
 Screenshot: 
 

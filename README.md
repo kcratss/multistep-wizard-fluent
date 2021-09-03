@@ -26,7 +26,7 @@ The package exposes 4 major components:
 
 ### Sample Usage
 
-Use the example from https://codesandbox.io/s/winter-shape-n7v8n?file=/src/App.tsx
+Use the example from https://codesandbox.io/s/blissful-tesla-c4dl4
 
 Explanation of the props to pass to the Wizard component:
 

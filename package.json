@@ -1,5 +1,5 @@
 {
-  "name": "fluent-wizard-react",
+  "name": "spc-fluent-wizard-react",
   "version": "1.0.11",
   "description": "A customizable 'Multi-step Wizard' component using Microsoft Fluent controls.",
   "main": "dist/index.js",
@@ -22,7 +22,7 @@
     "wizard",
     "steps-wizard"
   ],
-  "author": "Pratik Khandelwal",
+  "author": "Kunal Chaudhary",
   "license": "MIT",
   "homepage": "https://github.com/prkhandelwal/multistep-wizard-fluent#readme",
   "peerDependencies": {
@@ -67,7 +67,7 @@
   ],
   "dependencies": {
     "@fluentui/react": "^8.1.8",
-    "vertical-stepper-nav": "^1.0.2"
+    "spc-vertical-stepper-nav": "^1.0.2"
   },
   "alias": {
     "react": "./node_modules/react",

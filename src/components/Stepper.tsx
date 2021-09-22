@@ -1,6 +1,6 @@
 import * as React from "react";
 import { IStepper } from "./Wizard";
- import { StepperNav } from "vertical-stepper-nav";
+ import { StepperNav } from "spc-vertical-stepper-nav";
 import { NavContext } from "../context/NavContext";
 import { Stack } from "@fluentui/react/lib/Stack";
 import { getContainerStyleBasedOnResolution } from "../utilities/helpers";

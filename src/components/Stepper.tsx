@@ -1,6 +1,6 @@
 import * as React from "react";
 import { IStepper } from "./Wizard";
-import { StepperNav } from "vertical-stepper-nav";
+ import { StepperNav } from "vertical-stepper-nav";
 import { NavContext } from "../context/NavContext";
 import { Stack } from "@fluentui/react/lib/Stack";
 import { getContainerStyleBasedOnResolution } from "../utilities/helpers";
@@ -48,10 +48,12 @@ export const Stepper = (props: IStepper) => {
         root: {
           minWidth: getContainerStyleBasedOnResolution().navWidth,
           maxWidth: getContainerStyleBasedOnResolution().navWidth,
+          padding:'20px'
         },
       }} 
     >
-      <StepperNav steps={stepperMapProps} />
+      <StepperNav steps={stepperMapProps} isDesktop={props.isDesktop} />
     </Stack>
   );
 };
+

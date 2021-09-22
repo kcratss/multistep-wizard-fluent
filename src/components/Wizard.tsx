@@ -1,15 +1,12 @@
-import { Separator } from "@fluentui/react/lib/Separator";
+// import { Separator } from "@fluentui/react/lib/Separator";
 import { Stack } from "@fluentui/react/lib/Stack";
 import * as React from "react";
 import { NavContextWrapper } from "../context/NavContext";
-import { getContainerStyleBasedOnResolution } from "../utilities/helpers";
 import { DefaultPanel } from "./Containers/DefaultPanel";
 import { PageManager } from "./PageManager";
-import {
-  ScrollablePane,
-  ScrollbarVisibility,
-} from "@fluentui/react/lib/ScrollablePane";
+
 import { INavDetails } from "./Footer";
+import { IStyle } from "@fluentui/merge-styles";
 
 export interface IContainerProps {
   children: JSX.Element;
@@ -33,6 +30,7 @@ export interface IStepPageMap {
 export interface IStepper {
   steps: IStepPageMap[];
   navStateCallback: (data: INavDetails) => void;
+  isDesktop: boolean;
 }
 
 export interface IWizard {
@@ -45,94 +43,61 @@ export interface IWizard {
   closeButtonAriaLabel?: string;
   Footer?: JSX.Element;
   navStateCallback: (data: INavDetails) => void;
+  isDesktop: boolean;
+  Children?: JSX.Element;
+  height?:string;
+}
+
+const parentStackStyle:IStyle = {
+    height: 'calc(100vh - 200px)',
+    width: '100%',
+    bottom: 0,
+    top: '50px'
 }
 
 export const WizardMainContent = (props: IWizard) => {
   const { Stepper } = props;
+  const onRenderFooter = (props: IWizard) => {
+    return props.Footer ?? null;
+  };
+  
+  parentStackStyle.height = props.height??parentStackStyle.height;
+
   return (
-    <Stack tokens={{ maxHeight: "calc(100vh - 110px)" }}>
-      <Separator
-        styles={{
-          root: [
-            {
-              selectors: { "::before": { top: "100%" } },
-              height: 2,
-              paddingTop: 0,
-            },
-          ],
-        }}
-      />
-      <Stack horizontal tokens={{ maxHeight: "inherit" }}>
-        <Stack.Item
-          styles={{
-            root: [
-              {
-                marginTop: 30,
-                selectors: {
-                  "::-webkit-scrollbar": { width: "4px", height: "6px" },
-                  "::-webkit-scrollbar-track": {
-                    borderRadius: "10px",
-                    background: "rgba(0,0,0,0.05)",
-                  },
-                  "::-webkit-scrollbar-thumb": {
-                    borderRadius: "10px",
-                    background: "rgba(0,0,0,0.1)",
-                  },
-                  "::-webkit-scrollbar-thumb:hover": {
-                    background: "rgba(0,0,0,0.2)",
-                  },
-                  "::-webkit-scrollbar-thumb:active": {
-                    background: "rgba(0,0,0,0.3)",
-                  },
-                },
-                height: "inherit",
-                overflowY: "auto",
-                width: getContainerStyleBasedOnResolution().navWidth,
-              },
-            ],
-          }}
-        >
-          <Stack>
-            <Stepper steps={props.steps} navStateCallback={props.navStateCallback} />
-          </Stack>
+    <Stack>
+      {/* <Separator /> */}
+      <Stack horizontal={props.isDesktop} grow styles={{
+    root:{...parentStackStyle}
+  }}>
+        <Stack.Item align="center" style={{height: props.isDesktop?'100%':'auto',maxWidth:'400px'}}>          
+          <Stepper steps={props.steps} isDesktop={props.isDesktop} navStateCallback={props.navStateCallback} />
         </Stack.Item>
-        <Stack.Item>
-          <Separator vertical styles={{ root: { padding: 0 } }} />
-        </Stack.Item>
-        <Stack
-          grow={true}
-          styles={{
-            root: {
-              maxWidth: getContainerStyleBasedOnResolution().contentWidth,
-            },
-          }}
-        >
-          <Stack
-            styles={{
-              root: {
-                height: "inherit",
-                position: "relative",
-                maxHeight: "calc(100vh - 110px)",
-                minHeight: "80vh",
-                marginTop: 30,
-                marginLeft: 30,
-              },
-            }}
-          >
-            <ScrollablePane scrollbarVisibility={ScrollbarVisibility.auto}>
+
+        <Stack.Item style={{width:'100%',borderLeft:props.isDesktop?'1px solid rgb(237, 235, 233)':0,borderTop:props.isDesktop?0:'1px solid rgb(237, 235, 233)', height:'100%'}}>
+          <Stack styles={{
+    root:{height:'100%',justifyContent:'space-between'}
+  }}>
+          <Stack.Item style={{padding:'20px'}}>
               <PageManager steps={props.steps} />
-            </ScrollablePane>
+          </Stack.Item>
+          <Stack.Item style={{
+            height: '60px',
+            padding: '20px',
+            borderTop: '1px solid rgb(237, 235, 233)',
+            width: 'inherit'
+          }}>
+          {onRenderFooter(props)}
+          </Stack.Item>
           </Stack>
-        </Stack>
+        </Stack.Item>
       </Stack>
     </Stack>
   );
 };
 
 export const Wizard = (props: IWizard) => {
-  const onRenderFooter = (props: IWizard) => {
-    return props.Footer ?? null;
-  };
+  console.log(`Wizard desktop: ${props.isDesktop}`)
+  
   if (props.containerType === ContainerType.PANEL) {
     return (
       <NavContextWrapper initialStepList={props.steps}>
@@ -152,15 +117,8 @@ export const Wizard = (props: IWizard) => {
     <NavContextWrapper initialStepList={props.steps}>
       <div>
         <WizardMainContent {...props} />
-        <div style={{
-          position:"absolute",
-          bottom:'0',
-          width:'100%',
-          height:'60px',
-          background:'transparent'
-        }}>
-          {onRenderFooter(props)}
-        </div>
+       
+        
       </div>
     </NavContextWrapper>
   );

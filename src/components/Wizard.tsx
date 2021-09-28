@@ -49,7 +49,7 @@ export interface IWizard {
 }
 
 const parentStackStyle:IStyle = {
-    height: 'calc(100vh - 200px)',
+    minHeight: 'calc(100vh - 200px)',
     width: '100%',
     bottom: 0,
     top: '50px'
@@ -61,21 +61,20 @@ export const WizardMainContent = (props: IWizard) => {
     return props.Footer ?? null;
   };
   
-  parentStackStyle.height = props.height??parentStackStyle.height;
+  parentStackStyle.minHeight = props.height??parentStackStyle.minHeight;
 
   return (
-    <Stack>
-      {/* <Separator /> */}
+
       <Stack horizontal={props.isDesktop} grow styles={{
     root:{...parentStackStyle}
   }}>
-        <Stack.Item align="center" style={{height: props.isDesktop?'100%':'auto',maxWidth:'400px'}}>          
+        <Stack.Item align={props.isDesktop?"auto":"center"} style={{height: props.isDesktop?'100%':'auto',minWidth:'300px'}}>          
           <Stepper steps={props.steps} isDesktop={props.isDesktop} navStateCallback={props.navStateCallback} />
         </Stack.Item>
 
-        <Stack.Item style={{width:'100%',borderLeft:props.isDesktop?'1px solid rgb(237, 235, 233)':0,borderTop:props.isDesktop?0:'1px solid rgb(237, 235, 233)', height:'100%'}}>
+        <Stack.Item style={{borderLeft:props.isDesktop?'1px solid rgb(237, 235, 233)':0,borderTop:props.isDesktop?0:'1px solid rgb(237, 235, 233)',width:'100%'}}>
           <Stack styles={{
-    root:{height:'100%',justifyContent:'space-between'}
+    root:{minHeight:props.height,justifyContent:'space-between'}
   }}>
           <Stack.Item style={{padding:'20px'}}>
               <PageManager steps={props.steps} />
@@ -91,7 +90,6 @@ export const WizardMainContent = (props: IWizard) => {
           </Stack>
         </Stack.Item>
       </Stack>
-    </Stack>
   );
 };
 

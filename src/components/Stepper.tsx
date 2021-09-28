@@ -3,7 +3,6 @@ import { IStepper } from "./Wizard";
  import { StepperNav } from "spc-vertical-stepper-nav";
 import { NavContext } from "../context/NavContext";
 import { Stack } from "@fluentui/react/lib/Stack";
-import { getContainerStyleBasedOnResolution } from "../utilities/helpers";
 import { INavDetails } from "./Footer";
 
 export const Stepper = (props: IStepper) => {
@@ -45,9 +44,7 @@ export const Stepper = (props: IStepper) => {
   return (
     <Stack
       styles={{
-        root: {
-          minWidth: getContainerStyleBasedOnResolution().navWidth,
-          maxWidth: getContainerStyleBasedOnResolution().navWidth,
+        root: {          
           padding:'20px'
         },
       }} 

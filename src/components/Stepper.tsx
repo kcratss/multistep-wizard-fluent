@@ -20,7 +20,7 @@ export const Stepper = (props: IStepper) => {
           props.navStateCallback(data);
         }
       },
-      stepStateColor: props.steps[index].isActive ? "white" : "#D3D3D3",
+      stepStateColor: props.steps[index].isActive ? "white" : "#dedede",
     };
   });
   
@@ -39,7 +39,7 @@ export const Stepper = (props: IStepper) => {
       props.navStateCallback(data);
       }
     },
-    stepStateColor: "#0078D4",
+    stepStateColor: "#F78A05",
   };
   return (
     <Stack

@@ -1,3 +1,4 @@
+/* eslint-disable prettier/prettier */
 import * as React from "react";
 import { NavContext } from "../context/NavContext";
 import { IStepPageMap } from "./Wizard";

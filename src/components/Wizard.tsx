@@ -1,3 +1,4 @@
+/* eslint-disable prettier/prettier */
 // import { Separator } from "@fluentui/react/lib/Separator";
 import { Stack } from "@fluentui/react/lib/Stack";
 import * as React from "react";
@@ -18,6 +19,7 @@ export interface IContainerProps {
 }
 
 export enum ContainerType {
+  // eslint-disable-next-line no-unused-vars
   PANEL,
 }
 
@@ -25,6 +27,7 @@ export interface IStepPageMap {
   label: string;
   element: JSX.Element;
   isActive: boolean;
+  checked: boolean;
 }
 
 export interface IStepper {
@@ -45,60 +48,86 @@ export interface IWizard {
   navStateCallback: (data: INavDetails) => void;
   isDesktop: boolean;
   Children?: JSX.Element;
-  height?:string;
+  height?: string;
+  step: number;
+  setStep: any;
 }
 
-const parentStackStyle:IStyle = {
-    minHeight: 'calc(100vh - 200px)',
-    width: '100%',
-    bottom: 0,
-    top: '50px'
-}
+const parentStackStyle: IStyle = {
+  minHeight: "calc(100vh - 200px)",
+  width: "100%",
+  bottom: 0,
+  top: "50px",
+};
 
 export const WizardMainContent = (props: IWizard) => {
   const { Stepper } = props;
   const onRenderFooter = (props: IWizard) => {
     return props.Footer ?? null;
   };
-  
-  parentStackStyle.minHeight = props.height??parentStackStyle.minHeight;
+
+  parentStackStyle.minHeight = props.height ?? parentStackStyle.minHeight;
 
   return (
+    <Stack
+      horizontal={props.isDesktop}
+      grow
+      styles={{
+        root: { ...parentStackStyle },
+      }}
+    >
+      <Stack.Item
+        align={props.isDesktop ? "auto" : "center"}
+        style={{ height: props.isDesktop ? "100%" : "auto", minWidth: "260px" }}
+      >
+        <Stepper
+          steps={props.steps}
+          isDesktop={props.isDesktop}
+          navStateCallback={props.navStateCallback}
+        />
+      </Stack.Item>
 
-      <Stack horizontal={props.isDesktop} grow styles={{
-    root:{...parentStackStyle}
-  }}>
-        <Stack.Item align={props.isDesktop?"auto":"center"} style={{height: props.isDesktop?'100%':'auto',minWidth:'300px'}}>          
-          <Stepper steps={props.steps} isDesktop={props.isDesktop} navStateCallback={props.navStateCallback} />
-        </Stack.Item>
-
-        <Stack.Item style={{borderLeft:props.isDesktop?'1px solid rgb(237, 235, 233)':0,borderTop:props.isDesktop?0:'1px solid rgb(237, 235, 233)',width:'100%'}}>
-          <Stack styles={{
-    root:{minHeight:props.height,justifyContent:'space-between'}
-  }}>
-          <Stack.Item style={{padding:'20px'}}>
-              <PageManager steps={props.steps} />
+      <Stack.Item
+        style={{
+          borderLeft: props.isDesktop ? "1px solid rgb(237, 235, 233)" : 0,
+          borderTop: props.isDesktop ? 0 : "1px solid rgb(237, 235, 233)",
+          width: "100%",
+        }}
+      >
+        <Stack
+          styles={{
+            root: { minHeight: props.height, justifyContent: "space-between" },
+          }}
+        >
+          <Stack.Item style={{ padding: "20px" }}>
+            <PageManager steps={props.steps} />
           </Stack.Item>
-          <Stack.Item style={{
-            height: '60px',
-            padding: '20px',
-            borderTop: '1px solid rgb(237, 235, 233)',
-            width: 'inherit'
-          }}>
-          {onRenderFooter(props)}
+          <Stack.Item
+            style={{
+              height: "60px",
+              padding: "20px",
+              borderTop: "1px solid rgb(237, 235, 233)",
+              width: "inherit",
+            }}
+          >
+            {onRenderFooter(props)}
           </Stack.Item>
-          </Stack>
-        </Stack.Item>
-      </Stack>
+        </Stack>
+      </Stack.Item>
+    </Stack>
   );
 };
 
 export const Wizard = (props: IWizard) => {
-  console.log(`Wizard desktop: ${props.isDesktop}`)
-  
+  console.log(`Wizard desktop: ${props.isDesktop}`);
+
   if (props.containerType === ContainerType.PANEL) {
     return (
-      <NavContextWrapper initialStepList={props.steps}>
+      <NavContextWrapper
+        initialStepList={props.steps}
+        step={props.step}
+        setStep={props.setStep}
+      >
         <DefaultPanel
           isOpen={props.isOpen}
           Footer={props.Footer}
@@ -112,11 +141,13 @@ export const Wizard = (props: IWizard) => {
     );
   }
   return (
-    <NavContextWrapper initialStepList={props.steps}>
+    <NavContextWrapper
+      initialStepList={props.steps}
+      step={props.step}
+      setStep={props.setStep}
+    >
       <div>
         <WizardMainContent {...props} />
-       
-        
       </div>
     </NavContextWrapper>
   );

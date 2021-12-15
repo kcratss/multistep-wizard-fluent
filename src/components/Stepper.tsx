@@ -1,6 +1,7 @@
+/* eslint-disable prettier/prettier */
 import * as React from "react";
 import { IStepper } from "./Wizard";
- import { StepperNav } from "spc-vertical-stepper-nav";
+import { StepperNav } from "spc-vertical-stepper-nav";
 import { NavContext } from "../context/NavContext";
 import { Stack } from "@fluentui/react/lib/Stack";
 import { INavDetails } from "./Footer";
@@ -12,18 +13,21 @@ export const Stepper = (props: IStepper) => {
     return {
       stepContent: () => <div>{element.label}</div>,
       onClickHandler: () => {
-        if(props.steps[index].isActive) {
+        if (props.steps[index].isActive) {
           setStepDetails({ currentPageIndex: index });
           const data: INavDetails = {
-            currentPageIndex: index
-          }
+            currentPageIndex: index,
+          };
           props.navStateCallback(data);
         }
       },
-      stepStateColor: props.steps[index].isActive ? "white" : "#dedede",
+      stepStateColor: props.steps[index].isActive ? "#F78A05" : "#dedede",
+      isActive: props.steps[index].isActive,
+      currentPage: stepDetails.currentPageIndex,
+      isChecked: element.checked
     };
   });
-  
+
   stepperMapProps[stepDetails.currentPageIndex] = {
     stepContent: () => (
       <div style={{ fontSize: 14, fontWeight: "bold" }}>
@@ -31,26 +35,29 @@ export const Stepper = (props: IStepper) => {
       </div>
     ),
     onClickHandler: () => {
-      if(props.steps[stepDetails.currentPageIndex].isActive) {
+      if (props.steps[stepDetails.currentPageIndex].isActive) {
         setStepDetails({ currentPageIndex: stepDetails.currentPageIndex });
-      const data: INavDetails = {
-        currentPageIndex: stepDetails.currentPageIndex
-      }
-      props.navStateCallback(data);
+        const data: INavDetails = {
+          currentPageIndex: stepDetails.currentPageIndex,
+        };
+        props.navStateCallback(data);
       }
     },
     stepStateColor: "#F78A05",
+    isActive: props.steps[stepDetails.currentPageIndex].isActive,
+    currentPage: stepDetails.currentPageIndex,
+    isChecked: stepperMapProps[stepDetails.currentPageIndex].isChecked
   };
+
   return (
     <Stack
       styles={{
-        root: {          
-          padding:'20px'
+        root: {
+          padding: "20px",
         },
-      }} 
+      }}
     >
       <StepperNav steps={stepperMapProps} isDesktop={props.isDesktop} />
     </Stack>
   );
 };
-
